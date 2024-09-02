@@ -27,9 +27,9 @@ public class RunnerEx1 {
     //Запрещено пользоваться instanceOf.
 
     public static void start() {
-        Zoo<Animal> zoo1 = new Zoo<>(new Tiger(), new Tiger(), new Bird());
-        Zoo<Animal> zoo2 = new Zoo<>(new Dog(), new Dog(), new Dog());
-        Zoo<Animal> zoo3 = new Zoo<>(new Bird(), new Bird(), new Tiger());
+        Zoo<Tiger, Tiger, Bird> zoo1 = new Zoo<>(new Tiger(), new Tiger(), new Bird());
+        Zoo<Dog, Dog, Dog> zoo2 = new Zoo<>(new Dog(), new Dog(), new Dog());
+        Zoo<Bird, Bird, Tiger> zoo3 = new Zoo<>(new Bird(), new Bird(), new Tiger());
 
         Tiger tiger = zoo1.getFirstAnimal();
         tiger.growls();
@@ -37,5 +37,6 @@ public class RunnerEx1 {
         dog.barks();
         Bird bird = zoo3.getSecondAnimal();
         bird.flies();
+
     }
 }
