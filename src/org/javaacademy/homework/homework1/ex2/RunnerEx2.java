@@ -26,7 +26,7 @@ public class RunnerEx2 {
 
     }
 
-    public static Integer sumTemperaturesAllDays(ArrayList<Integer> arrayListTemperatures) {
+    private static Integer sumTemperaturesAllDays(ArrayList<Integer> arrayListTemperatures) {
         int sumOfTemperatures = 0;
         for (Integer temperatureForOneDay : arrayListTemperatures) {
             if (temperatureForOneDay == null) {
