@@ -2,6 +2,7 @@ package org.javaacademy.homework.homework2.ex2;
 
 import org.javaacademy.homework.homework1.Runner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -15,8 +16,8 @@ public class RunnerEx2 {
     private static final int HEAVY = 2;
     private static final Integer ZERO = 0;
 
-    public static void start2() {
-        ArrayList<Integer> arrayListCategory = sumSuitcaseWeightsCategory("luggage.csv");
+    public static void start2() throws IOException {
+        ArrayList<Integer> arrayListCategory = sumOfSuitcasesWeightByCategory("luggage.csv");
         String word = "категория чемодана";
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add(word + " легкий - " + arrayListCategory.get(LIGHT));
@@ -27,7 +28,7 @@ public class RunnerEx2 {
         }
     }
 
-    public static ArrayList<Integer> sumSuitcaseWeightsCategory(String fileName) {
+    private static ArrayList<Integer> sumOfSuitcasesWeightByCategory(String fileName) throws IOException {
         ArrayList<Integer> arrayListCategory = new ArrayList<>();
         for (int i = 0; i < QUANTITY_CATEGORIES; i++) {
             arrayListCategory.add(ZERO);
@@ -37,7 +38,6 @@ public class RunnerEx2 {
                                                                .getResourceAsStream(fileName)))
         ) {
             String line;
-            scanner.nextLine();
             while (scanner.hasNext()) {
                 line = scanner.nextLine();
                 String[] array = line.split(";");
