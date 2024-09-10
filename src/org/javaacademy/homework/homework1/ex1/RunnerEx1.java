@@ -37,6 +37,9 @@ public class RunnerEx1 {
         dog.barks();
         Bird bird = zoo3.getSecondAnimal();
         bird.flies();
+        zoo2.getThirdAnimal().barks();
+        zoo1.getSecondAnimal().growls();
+        zoo3.getFirstAnimal().flies();
 
     }
 }

@@ -13,15 +13,15 @@ public class Zoo<T extends Animal, U extends Animal, W extends Animal>  {
         this.thirdAnimal = thirdAnimal;
     }
 
-    public <T> T getFirstAnimal()  {
-        return (T) firstAnimal;
+    public T getFirstAnimal()  {
+        return  firstAnimal;
     }
 
-    public <U> U getSecondAnimal() {
-        return (U) secondAnimal;
+    public U getSecondAnimal() {
+        return secondAnimal;
     }
 
-    public <W> W getThirdAnimal() {
-        return (W) thirdAnimal;
+    public W getThirdAnimal() {
+        return thirdAnimal;
     }
 }
