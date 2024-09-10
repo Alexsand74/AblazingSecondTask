@@ -9,44 +9,52 @@ import java.util.Scanner;
 public class RunnerEx2 {
     private static final Integer HEAVY_CATEGORY = 10;
     private static final Integer MEDIUM_CATEGORY = 5;
+    private static final int QUANTITY_CATEGORIES = 3;
+    private static final int LIGHT = 0;
+    private static final int MEDIUM = 1;
+    private static final int HEAVY = 2;
     private static final Integer ZERO = 0;
 
     public static void start2() {
-        ArrayList<String> arrayListCategory = sumSuitcaseWeightsCategory("luggage.csv");
-        for (String line : arrayListCategory) {
+        ArrayList<Integer> arrayListCategory = sumSuitcaseWeightsCategory("luggage.csv");
+        String word = "категория чемодана";
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(word + " легкий - " + arrayListCategory.get(LIGHT));
+        arrayList.add(word + " средний - " + arrayListCategory.get(MEDIUM));
+        arrayList.add(word + " тяжелый - " + arrayListCategory.get(HEAVY));
+        for (String line : arrayList) {
             System.out.println(line);
         }
     }
 
-    public static ArrayList<String> sumSuitcaseWeightsCategory(String fileName) {
-        Integer light = ZERO;
-        Integer medium = ZERO;
-        Integer heavy = ZERO;
-        Integer weightCurrentSuitcase = ZERO;
-        try (Scanner scanner = new Scanner(Objects.requireNonNull(Runner.class
-                .getClassLoader()
-                .getResourceAsStream(fileName)))
+    public static ArrayList<Integer> sumSuitcaseWeightsCategory(String fileName) {
+        ArrayList<Integer> arrayListCategory = new ArrayList<>();
+        for (int i = 0; i < QUANTITY_CATEGORIES; i++) {
+            arrayListCategory.add(ZERO);
+        }
+        Integer weightCurrentSuitcase;
+        try (Scanner scanner = new Scanner(Objects.requireNonNull(Runner.class.getClassLoader()
+                                                               .getResourceAsStream(fileName)))
         ) {
             String line;
             scanner.nextLine();
             while (scanner.hasNext()) {
                 line = scanner.nextLine();
                 String[] array = line.split(";");
-                weightCurrentSuitcase = Integer.valueOf(array[1]);
+                try {
+                    weightCurrentSuitcase = Integer.valueOf(array[1]);
+                } catch (NumberFormatException e) {
+                    continue;
+                }
                 if (weightCurrentSuitcase > HEAVY_CATEGORY) {
-                    heavy += weightCurrentSuitcase;
+                    arrayListCategory.set(HEAVY, arrayListCategory.get(HEAVY) + weightCurrentSuitcase);
                 } else if (weightCurrentSuitcase > MEDIUM_CATEGORY) {
-                    medium += weightCurrentSuitcase;
+                    arrayListCategory.set(MEDIUM, arrayListCategory.get(MEDIUM) + weightCurrentSuitcase);
                 } else {
-                    light += weightCurrentSuitcase;
+                    arrayListCategory.set(LIGHT, arrayListCategory.get(LIGHT) + weightCurrentSuitcase);
                 }
             }
-            String word = "категория чемодана";
-            ArrayList<String> arrayList = new ArrayList<>();
-            arrayList.add(word + " легкий - " + light);
-            arrayList.add(word + " средний - " + medium);
-            arrayList.add(word + " тяжелый - " + heavy);
-            return arrayList;
+            return arrayListCategory;
         }
     }
 }
