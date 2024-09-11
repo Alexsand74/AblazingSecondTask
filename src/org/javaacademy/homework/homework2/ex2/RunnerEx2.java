@@ -12,6 +12,7 @@ public class RunnerEx2 {
     private static final String HEAVY = "HEAVY";
     private static final String FILE_NAME = "luggage.csv";
     private static final Integer ZERO = 0;
+    private static final int GET_WEIGHT = 1;
 
     public static void start2()  {
 
@@ -41,7 +42,7 @@ public class RunnerEx2 {
                 line = scanner.nextLine();
                 String[] array = line.split(";");
                 try {
-                    weightCurrentSuitcase = Integer.valueOf(array[1]);
+                    weightCurrentSuitcase = Integer.valueOf(array[GET_WEIGHT]);
                 } catch (NumberFormatException e) {
                     continue;
                 }
