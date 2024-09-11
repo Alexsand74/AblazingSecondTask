@@ -2,40 +2,39 @@ package org.javaacademy.homework.homework2.ex2;
 
 import org.javaacademy.homework.homework1.Runner;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class RunnerEx2 {
     private static final Integer HEAVY_CATEGORY = 10;
     private static final Integer MEDIUM_CATEGORY = 5;
-    private static final int QUANTITY_CATEGORIES = 3;
-    private static final int LIGHT = 0;
-    private static final int MEDIUM = 1;
-    private static final int HEAVY = 2;
+    private static final String LIGHT = "LIGHT";
+    private static final String MEDIUM = "MEDIUM";
+    private static final String HEAVY = "HEAVY";
+    private static final String FILE_NAME = "luggage.csv";
     private static final Integer ZERO = 0;
 
-    public static void start2() throws IOException {
-        ArrayList<Integer> arrayListCategory = sumOfSuitcasesWeightByCategory("luggage.csv");
+    public static void start2()  {
+
+        HashMap<String, Integer> hashMapCategory = new HashMap<>();
+        hashMapCategory.put(HEAVY, ZERO);
+        hashMapCategory.put(MEDIUM, ZERO);
+        hashMapCategory.put(LIGHT, ZERO);
+
+        HashMap<String, Integer> hashMap = sumOfSuitcasesWeightByCategory(FILE_NAME, hashMapCategory);
         String word = "категория чемодана";
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add(word + " легкий - " + arrayListCategory.get(LIGHT));
-        arrayList.add(word + " средний - " + arrayListCategory.get(MEDIUM));
-        arrayList.add(word + " тяжелый - " + arrayListCategory.get(HEAVY));
-        for (String line : arrayList) {
-            System.out.println(line);
-        }
+        System.out.printf("%s легкий - %d  \n", word, hashMap.get(LIGHT));
+        System.out.printf("%s средний - %d  \n", word, hashMap.get(MEDIUM));
+        System.out.printf("%s тяжелый - %d  \n", word, hashMap.get(HEAVY));
     }
 
-    private static ArrayList<Integer> sumOfSuitcasesWeightByCategory(String fileName) throws IOException {
-        ArrayList<Integer> arrayListCategory = new ArrayList<>();
-        for (int i = 0; i < QUANTITY_CATEGORIES; i++) {
-            arrayListCategory.add(ZERO);
+    private static HashMap<String, Integer> sumOfSuitcasesWeightByCategory(String fileName,
+                                                              HashMap<String, Integer> hashMap) {
+        if (hashMap.isEmpty()) {
+            throw  new IllegalArgumentException("Error entering argument hashMap" + hashMap);
         }
         Integer weightCurrentSuitcase;
         try (Scanner scanner = new Scanner(Objects.requireNonNull(Runner.class.getClassLoader()
-                                                               .getResourceAsStream(fileName)))
+                                                                  .getResourceAsStream(fileName)))
         ) {
             String line;
             while (scanner.hasNext()) {
@@ -47,14 +46,14 @@ public class RunnerEx2 {
                     continue;
                 }
                 if (weightCurrentSuitcase > HEAVY_CATEGORY) {
-                    arrayListCategory.set(HEAVY, arrayListCategory.get(HEAVY) + weightCurrentSuitcase);
+                    hashMap.put(HEAVY, hashMap.get(HEAVY) + weightCurrentSuitcase);
                 } else if (weightCurrentSuitcase > MEDIUM_CATEGORY) {
-                    arrayListCategory.set(MEDIUM, arrayListCategory.get(MEDIUM) + weightCurrentSuitcase);
+                    hashMap.put(MEDIUM, hashMap.get(MEDIUM) + weightCurrentSuitcase);
                 } else {
-                    arrayListCategory.set(LIGHT, arrayListCategory.get(LIGHT) + weightCurrentSuitcase);
+                    hashMap.put(LIGHT, hashMap.get(LIGHT) + weightCurrentSuitcase);
                 }
             }
-            return arrayListCategory;
+            return hashMap;
         }
     }
 }
