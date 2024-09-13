@@ -8,22 +8,21 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class RunnerEx1 {
-
-    private static LinkedList<String> listLinesFile = new LinkedList<>();
-
-    private static final int FIRST_COLUMN_INDEX = 0;
+    private static final int INDEX_FIRST_COLUMN = 0;
     private static final int INDEX_SECOND_COLUMN = 1;
     private static final int QUANTITY_ON_TAPE = 10;
+    private static LinkedList<String> listLinesFile = new LinkedList<>();
     private static int counter = 0;
 
     public static void startTask1() throws IOException, InterruptedException {
         String filename = "luggage.csv";
         LinkedList<String> list = new LinkedList<>();
         do {
+
             list.addAll(deliveringBaggageInBatches(filename, counter));
-            int numberCycles = list.size();
+
             System.out.println("Лента загружена, начинается выдача багажа");
-            for (int i = 0; i < numberCycles; i++) {
+            for (int i = 0; i < list.size(); i++) {
                 System.out.println((1 + counter) + " - " + list.poll() + " выдан");
                 counter++;
             }
@@ -35,7 +34,7 @@ public class RunnerEx1 {
     }
 
     private static LinkedList<String> deliveringBaggageInBatches(String fileName, int numberPreviouslyReadLines) {
-        if(numberPreviouslyReadLines == 0) {
+        if (numberPreviouslyReadLines == 0) {
             try (Scanner scanner = new Scanner(Objects.requireNonNull(Runner.class
                     .getClassLoader()
                     .getResourceAsStream(fileName)))
@@ -48,7 +47,7 @@ public class RunnerEx1 {
                     } catch (NumberFormatException e) {
                         continue;
                     }
-                    listLinesFile.add(array[FIRST_COLUMN_INDEX]);
+                    listLinesFile.add(array[INDEX_FIRST_COLUMN]);
                 }
             }
         }

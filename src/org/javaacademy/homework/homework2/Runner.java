@@ -56,7 +56,7 @@ public class Runner {
         //тяжелый - 1200
 
         //Протестировать функцию на файле luggage.csv.
-//        System.out.println("_______________________________________________");
-//        RunnerEx2.startTask2();
+        System.out.println("_______________________________________________");
+        RunnerEx2.startTask2();
     }
 }
