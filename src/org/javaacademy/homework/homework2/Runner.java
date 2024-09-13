@@ -6,7 +6,7 @@ import org.javaacademy.homework.homework2.ex2.RunnerEx2;
 import java.io.IOException;
 
 public class Runner {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         //1. Задание: Грузчики в Болгарии
         //В аэропорт Болгарии прилетает самолет. В самолете багаж.
         //На выгрузной ленте может находиться не больше 10 чемоданов.
@@ -40,7 +40,7 @@ public class Runner {
         //Лента пустая, закончена выдача багажа
 
         //Протестировать функцию на файле luggage.csv.
-        RunnerEx1.start1();
+        RunnerEx1.startTask1();
 
         //2. Задание: Таможня в Болгарии
         //Таможня собирает статистику о весе ввезенных чемоданов.
@@ -56,7 +56,7 @@ public class Runner {
         //тяжелый - 1200
 
         //Протестировать функцию на файле luggage.csv.
-        System.out.println("_______________________________________________");
-        RunnerEx2.start2();
+//        System.out.println("_______________________________________________");
+//        RunnerEx2.startTask2();
     }
 }

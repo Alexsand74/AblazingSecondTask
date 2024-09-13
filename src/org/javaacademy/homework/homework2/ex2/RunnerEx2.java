@@ -14,12 +14,9 @@ public class RunnerEx2 {
     private static final Integer ZERO = 0;
     private static final int GET_WEIGHT = 1;
 
-    public static void start2()  {
+    public static void startTask2()  {
 
         HashMap<String, Integer> hashMapCategory = new HashMap<>();
-        hashMapCategory.put(HEAVY, ZERO);
-        hashMapCategory.put(MEDIUM, ZERO);
-        hashMapCategory.put(LIGHT, ZERO);
 
         HashMap<String, Integer> hashMap = sumOfSuitcasesWeightByCategory(FILE_NAME, hashMapCategory);
         String word = "категория чемодана";
