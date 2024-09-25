@@ -57,7 +57,7 @@ public class Runner {
                            : firstPartWord + value + lastPartWord;
     }
 
-    private static int cutOutNumber(Car car) {
+    private static Integer cutOutNumber(Car car) {
         return Integer.parseInt(car
                 .getNumber()
                 .substring(2, 4));

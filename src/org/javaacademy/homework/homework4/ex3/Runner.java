@@ -55,7 +55,7 @@ public class Runner {
 //        если он есть ничего не делать (метод ifPresentOrElse у optional).
         listSkyscraperNoDuplicates.stream()
                 .filter(e -> e.getHeight() > HEIGHT_ONE_KILOMETER)
-                .findAny()
+                .findFirst()
                 .ifPresentOrElse(
                         e -> listSkyscraperNoDuplicates.stream()
                                 .filter(el -> el.getHeight() > HEIGHT_ONE_KILOMETER)
