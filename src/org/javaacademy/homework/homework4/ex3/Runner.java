@@ -2,9 +2,11 @@ package org.javaacademy.homework.homework4.ex3;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 public class Runner {
+    static final private int HEIGHT_ONE_KILOMETER = 1000;
+    static final private String DEFAULT_STRING = "Небоскребов выше километра - нет.";
+
     public static void main(String[] args) {
         //Задание №3 - Небоскребы, небоскребы, а я...
         //1. Создать Класс Небоскреб - имя небоскреба, его высота в метрах.
@@ -36,21 +38,30 @@ public class Runner {
 
         System.out.println("4.1_____________________________________________");
         List<Skyscraper> listSkyscraperNoDuplicates = listSkyscraper.stream().distinct().toList();
+        listSkyscraperNoDuplicates.forEach(System.out::println);
+
         System.out.println("4.2_____________________________________________");
         listSkyscraperNoDuplicates.stream().limit(3).forEach(System.out::println);
+
         System.out.println("4.3_____________________________________________");
         System.out.println(listSkyscraperNoDuplicates.stream()
                            .max(Comparator.comparingInt(Skyscraper::getHeight))
-                           .orElse(new Skyscraper("нет небоскреба", 0)));
+                           .get());
+
         System.out.println("4.4_____________________________________________");
 //        подсказка от Юрия:
 //        вам нужно отфильтровать элементы -> произвести их печать -> вытащить первый элемент ,
 //        если его нет то распечатать "небоскребов нет",
 //        если он есть ничего не делать (метод ifPresentOrElse у optional).
         listSkyscraperNoDuplicates.stream()
-                      .filter(skyscraper -> skyscraper.getHeight() > 1000)
-                      .findFirst().ifPresentOrElse(System.out::println,
-                          () -> System.out.println("небоскреба выше километра - нет"));
+                .filter(e -> e.getHeight() > 1000)
+                .findAny()
+                .ifPresentOrElse(
+                        e -> listSkyscraperNoDuplicates.stream()
+                                .filter(el -> el.getHeight() > HEIGHT_ONE_KILOMETER)
+                                .forEach(System.out::println),
+                        () -> System.out.println(DEFAULT_STRING)
+            );
 
     }
 }

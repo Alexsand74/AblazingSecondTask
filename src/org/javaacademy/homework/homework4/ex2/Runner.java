@@ -2,9 +2,11 @@ package org.javaacademy.homework.homework4.ex2;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
 
 public class Runner {
+    static final private int DEFAULT_VALUE_IS_ZERO = 0;
+    static final private char SEARCH_LETTER = 'о';
+
     public static void main(String[] args) {
         //Задание №2 - Сколько здесь "о" ?
         //1. Создать набор уникальных слов: "тон", "тополь", "боль", "рой", "стройка"
@@ -15,22 +17,24 @@ public class Runner {
         //
         //ожидаемый результат:
         //6
-        List<String> listWords = List.of("тон", "тополь", "боль", "рой", "стройка");
-        Set<String> words = new HashSet<>();
-        words.addAll(listWords);
-        Integer sum = words.stream()
-                .peek(e -> System.out.println(e))
-                .map(word -> {
-                    char[] charArray = word.toCharArray();
-                    int result = 0;
-                    for (char letter : charArray) {
-                        if (letter == 'о') {
-                            result++;
-                        }
-                    }
-                    return Integer.valueOf(result);
-                }).mapToInt(Integer::intValue)
-                .sum();
-        System.out.println(sum);
+
+        Set<String> setWords = Set.of("тон", "тополь", "боль", "рой", "стройка");
+        Set<String> words = new HashSet<>(setWords);
+        words.stream()
+                .map(Runner::convert)
+                .reduce(Integer::sum)
+                .ifPresentOrElse(System.out::println,
+                        () -> System.out.println(DEFAULT_VALUE_IS_ZERO));
+    }
+
+    private static Integer convert(String word) {
+        char[] charArray = word.toCharArray();
+        int counter = DEFAULT_VALUE_IS_ZERO;
+        for (char letter : charArray) {
+            if (letter == SEARCH_LETTER) {
+                counter++;
+            }
+        }
+        return counter;
     }
 }

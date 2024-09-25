@@ -5,6 +5,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public class Runner {
+    static final private int DEFAULT_VALUE_IS_ZERO = 0;
+    static final private int MINIMUM_VALUE = 39;
+    static final private int MAXIMUM_VALUE = 50;
+    static final private int START_POSITION = 2;
+    static final private int END_POSITION = 4;
+
     public static void main(String[] args) {
         //ИСПОЛЬЗОВАНИЕ FOR, WHILE ЗАПРЕЩЕНО В ЭТОЙ ДЗ! Только СТРИМЫ.
 
@@ -23,30 +29,35 @@ public class Runner {
         // ...
         // k048се178
         // k049се178
-        AtomicInteger number = new AtomicInteger(0);
+        AtomicInteger number = new AtomicInteger(DEFAULT_VALUE_IS_ZERO);
         List<Car> carListOne = Stream.generate(() -> number.addAndGet(1))
                 .limit(50)
-                .map(e -> new Car(e < 10 ? "a00" + e + "ан799" : "a0" + e + "ан799"))
+                .map(e -> new Car(convert(e, "a00ан799")))
                 .toList();
 
-        number.set(0);
+        number.set(DEFAULT_VALUE_IS_ZERO);
         List<Car> carListTwo = Stream.generate(() -> number.addAndGet(1))
                 .limit(50)
-                .map(e -> new Car(e < 10 ? "a00" + e + "се178" : "a0" + e + "се178"))
+                .map(e -> new Car(convert(e, "a00се178")))
                 .toList();
 
         Stream<Car> streamCarFull = Stream.concat(carListOne.stream(), carListTwo.stream());
 
         streamCarFull
                 .filter(e -> {
-                    int result = Integer.parseInt(e.getNumber().substring(2, 4));
-                    return result > 39 && result < 50;
+                    int result = Integer.parseInt(e
+                            .getNumber()
+                            .substring(START_POSITION, END_POSITION));
+                    return result > MINIMUM_VALUE && result < MAXIMUM_VALUE;
                 })
                 .map(Car::getNumber)
                 .forEach(System.out::println);
 
-//        streamCarFull.map(e -> e.getNumber().substring(2,4)).forEach(e-> System.out.println(e.toString()));
+    }
 
-//        streamCarFull.forEach(e-> System.out.println(e.toString()));
+    private static String convert(int value, String word) {
+        return value < 10 ?
+                        word.substring(0, 3) + value + word.substring(3, 8)
+                      : word.substring(0, 2) + value + word.substring(3, 8);
     }
 }
