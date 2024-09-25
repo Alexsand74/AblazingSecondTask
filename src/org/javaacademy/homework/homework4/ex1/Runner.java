@@ -29,6 +29,7 @@ public class Runner {
         // ...
         // k048се178
         // k049се178
+
         AtomicInteger number = new AtomicInteger(DEFAULT_VALUE_IS_ZERO);
         List<Car> carListOne = Stream.generate(() -> number.addAndGet(1))
                 .limit(50)
