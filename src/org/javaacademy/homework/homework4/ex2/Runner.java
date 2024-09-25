@@ -21,13 +21,13 @@ public class Runner {
         Set<String> setWords = Set.of("тон", "тополь", "боль", "рой", "стройка");
         Set<String> words = new HashSet<>(setWords);
         words.stream()
-                .map(Runner::convert)
+                .map(Runner::letterCounter)
                 .reduce(Integer::sum)
                 .ifPresentOrElse(System.out::println,
                         () -> System.out.println(DEFAULT_VALUE_IS_ZERO));
     }
 
-    private static Integer convert(String word) {
+    private static Integer letterCounter(String word) {
         char[] charArray = word.toCharArray();
         int counter = DEFAULT_VALUE_IS_ZERO;
         for (char letter : charArray) {

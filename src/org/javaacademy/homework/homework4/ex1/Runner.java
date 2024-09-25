@@ -6,10 +6,9 @@ import java.util.stream.Stream;
 
 public class Runner {
     static final private int DEFAULT_VALUE_IS_ZERO = 0;
+    static final private int ELEMENT_NUMBER_LIMIT = 50;
     static final private int MINIMUM_VALUE = 39;
     static final private int MAXIMUM_VALUE = 50;
-    static final private int START_POSITION = 2;
-    static final private int END_POSITION = 4;
 
     public static void main(String[] args) {
         //ИСПОЛЬЗОВАНИЕ FOR, WHILE ЗАПРЕЩЕНО В ЭТОЙ ДЗ! Только СТРИМЫ.
@@ -32,31 +31,35 @@ public class Runner {
 
         AtomicInteger number = new AtomicInteger(DEFAULT_VALUE_IS_ZERO);
         List<Car> carListOne = Stream.generate(() -> number.addAndGet(1))
-                .limit(50)
+                .limit(ELEMENT_NUMBER_LIMIT)
                 .map(digit -> new Car(createNumberByDigit(digit, "a00ан799")))
                 .toList();
 
         number.set(DEFAULT_VALUE_IS_ZERO);
         List<Car> carListTwo = Stream.generate(() -> number.addAndGet(1))
-                .limit(50)
+                .limit(ELEMENT_NUMBER_LIMIT)
                 .map(digit -> new Car(createNumberByDigit(digit, "a00се178")))
                 .toList();
 
         Stream<Car> streamCarFull = Stream.concat(carListOne.stream(), carListTwo.stream());
 
         streamCarFull
-                .filter(digit -> {
-                    int result = Integer.parseInt(digit
-                            .getNumber()
-                            .substring(START_POSITION, END_POSITION));
-                    return result > MINIMUM_VALUE && result < MAXIMUM_VALUE;
-                })
-                .map(Car::getNumber)
-                .forEach(System.out::println);
+                .filter(car ->
+                     cutOutNumber(car) > MINIMUM_VALUE && cutOutNumber(car) < MAXIMUM_VALUE
+                ).map(Car::getNumber)
+                 .forEach(System.out::println);
     }
 
     private static String createNumberByDigit(int value, String word) {
-        return value < 10 ? word.substring(0, 3) + value + word.substring(3, 8)
-                           : word.substring(0, 2) + value + word.substring(3, 8);
+        String lastPartWord = word.substring(3, 8);
+        String firstPartWord = word.substring(0, 2);
+        return value < 10 ? firstPartWord + 0 + value + lastPartWord
+                           : firstPartWord + value + lastPartWord;
+    }
+
+    private static int cutOutNumber(Car car) {
+        return Integer.parseInt(car
+                .getNumber()
+                .substring(2, 4));
     }
 }
