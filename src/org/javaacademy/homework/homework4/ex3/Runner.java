@@ -54,7 +54,7 @@ public class Runner {
 //        если его нет то распечатать "небоскребов нет",
 //        если он есть ничего не делать (метод ifPresentOrElse у optional).
         listSkyscraperNoDuplicates.stream()
-                .filter(e -> e.getHeight() > 1000)
+                .filter(e -> e.getHeight() > HEIGHT_ONE_KILOMETER)
                 .findAny()
                 .ifPresentOrElse(
                         e -> listSkyscraperNoDuplicates.stream()
@@ -62,6 +62,5 @@ public class Runner {
                                 .forEach(System.out::println),
                         () -> System.out.println(DEFAULT_STRING)
             );
-
     }
 }

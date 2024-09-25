@@ -32,32 +32,30 @@ public class Runner {
         AtomicInteger number = new AtomicInteger(DEFAULT_VALUE_IS_ZERO);
         List<Car> carListOne = Stream.generate(() -> number.addAndGet(1))
                 .limit(50)
-                .map(e -> new Car(convert(e, "a00ан799")))
+                .map(digit -> new Car(createNumberByDigit(digit, "a00ан799")))
                 .toList();
 
         number.set(DEFAULT_VALUE_IS_ZERO);
         List<Car> carListTwo = Stream.generate(() -> number.addAndGet(1))
                 .limit(50)
-                .map(e -> new Car(convert(e, "a00се178")))
+                .map(digit -> new Car(createNumberByDigit(digit, "a00се178")))
                 .toList();
 
         Stream<Car> streamCarFull = Stream.concat(carListOne.stream(), carListTwo.stream());
 
         streamCarFull
-                .filter(e -> {
-                    int result = Integer.parseInt(e
+                .filter(digit -> {
+                    int result = Integer.parseInt(digit
                             .getNumber()
                             .substring(START_POSITION, END_POSITION));
                     return result > MINIMUM_VALUE && result < MAXIMUM_VALUE;
                 })
                 .map(Car::getNumber)
                 .forEach(System.out::println);
-
     }
 
-    private static String convert(int value, String word) {
-        return value < 10 ?
-                        word.substring(0, 3) + value + word.substring(3, 8)
-                      : word.substring(0, 2) + value + word.substring(3, 8);
+    private static String createNumberByDigit(int value, String word) {
+        return value < 10 ? word.substring(0, 3) + value + word.substring(3, 8)
+                           : word.substring(0, 2) + value + word.substring(3, 8);
     }
 }
