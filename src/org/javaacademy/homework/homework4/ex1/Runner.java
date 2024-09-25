@@ -45,9 +45,9 @@ public class Runner {
 
         streamCarFull
                 .filter(car ->
-                     cutOutNumber(car) > MINIMUM_VALUE && cutOutNumber(car) < MAXIMUM_VALUE
-                ).map(Car::getNumber)
-                 .forEach(System.out::println);
+                     cutOutNumber(car) > MINIMUM_VALUE && cutOutNumber(car) < MAXIMUM_VALUE)
+                .map(Car::getNumber)
+                .forEach(System.out::println);
     }
 
     private static String createNumberByDigit(int value, String word) {
