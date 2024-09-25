@@ -1,6 +1,6 @@
 package org.javaacademy.homework.homework4.ex1;
 
-import java.util.*;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -29,17 +29,9 @@ public class Runner {
         // k048се178
         // k049се178
 
-        AtomicInteger number = new AtomicInteger(DEFAULT_VALUE_IS_ZERO);
-        List<Car> carListOne = Stream.generate(() -> number.addAndGet(1))
-                .limit(ELEMENT_NUMBER_LIMIT)
-                .map(digit -> new Car(createNumberByDigit(digit, "a00ан799")))
-                .toList();
+        List<Car> carListOne = createListCar("a00ан799");
 
-        number.set(DEFAULT_VALUE_IS_ZERO);
-        List<Car> carListTwo = Stream.generate(() -> number.addAndGet(1))
-                .limit(ELEMENT_NUMBER_LIMIT)
-                .map(digit -> new Car(createNumberByDigit(digit, "a00се178")))
-                .toList();
+        List<Car> carListTwo = createListCar("a00се178");
 
         Stream<Car> streamCarFull = Stream.concat(carListOne.stream(), carListTwo.stream());
 
@@ -48,6 +40,14 @@ public class Runner {
                      cutOutNumber(car) > MINIMUM_VALUE && cutOutNumber(car) < MAXIMUM_VALUE)
                 .map(Car::getNumber)
                 .forEach(System.out::println);
+    }
+
+    private static List<Car> createListCar(String namber) {
+        AtomicInteger counter = new AtomicInteger(DEFAULT_VALUE_IS_ZERO);
+        return Stream.generate(() -> counter.addAndGet(1))
+                .limit(ELEMENT_NUMBER_LIMIT)
+                .map(digit -> new Car(createNumberByDigit(digit, namber)))
+                .toList();
     }
 
     private static String createNumberByDigit(int value, String word) {
