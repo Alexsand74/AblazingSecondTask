@@ -34,7 +34,10 @@ public class Runner {
                                         new Skyscraper("Международный финансовый центр Пинань", 599),
                                         new Skyscraper("Абрадж аль-Бейт", 601),
                                         new Skyscraper("Всемирный центр Лотте", 555),
-                                        new Skyscraper("Бурдж-Халифа", 828));
+                                        new Skyscraper("Бурдж-Халифа", 828)
+//                                      new Skyscraper("высотка 1200", 1200),
+//                                      new Skyscraper("высотка 1400", 1400)
+        );
 
         System.out.println("4.1_____________________________________________");
         List<Skyscraper> listSkyscraperNoDuplicates = listSkyscraper.stream().distinct().toList();
@@ -47,7 +50,7 @@ public class Runner {
         System.out.println(listSkyscraperNoDuplicates
                            .stream()
                            .max(Comparator.comparingInt(Skyscraper::getHeight))
-                           .get());
+                           .orElse(null));
 
         System.out.println("4.4_____________________________________________");
 //        подсказка от Юрия:
@@ -56,12 +59,13 @@ public class Runner {
 //        если он есть ничего не делать (метод ifPresentOrElse у optional).
         listSkyscraperNoDuplicates.stream()
                 .filter(skyscraper -> skyscraper.getHeight() > HEIGHT_ONE_KILOMETER)
+                .peek(skyscraper -> listSkyscraperNoDuplicates.stream()
+                                                              .filter(skyscraperIn ->
+                                                                       skyscraperIn
+                                                                       .getHeight() > HEIGHT_ONE_KILOMETER)
+                        .forEach(System.out::println))
                 .findFirst()
-                .ifPresentOrElse(
-                        skyscraper -> listSkyscraperNoDuplicates.stream()
-                                .filter(skyscraperIn -> skyscraperIn.getHeight() > HEIGHT_ONE_KILOMETER)
-                                .forEach(System.out::println),
-                                 () -> System.out.println(DEFAULT_STRING)
+                .ifPresentOrElse(skyscraper -> {}, () -> System.out.println(DEFAULT_STRING)
             );
     }
 }
