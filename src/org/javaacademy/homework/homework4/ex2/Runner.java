@@ -2,6 +2,8 @@ package org.javaacademy.homework.homework4.ex2;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 public class Runner {
     static final private int DEFAULT_VALUE_IS_ZERO = 0;
@@ -25,6 +27,19 @@ public class Runner {
                 .reduce(Integer::sum)
                 .ifPresentOrElse(System.out::println,
                         () -> System.out.println(DEFAULT_VALUE_IS_ZERO));
+
+        System.out.println("=====================");
+
+        Set<String> setWordsTwo = Set.of("тон", "тополь", "боль", "рой", "стройка");
+
+        Set<String> wordsTwo = new HashSet<>(setWordsTwo);
+        System.out.println(
+              wordsTwo.stream()
+                      .mapToInt(word -> Math.toIntExact(word.chars()
+                                                            .filter(ch -> ch == 'о')
+                                                            .count()))
+                      .sum()
+        );
     }
 
     private static Integer letterCounter(String word) {

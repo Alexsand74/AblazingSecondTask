@@ -44,7 +44,8 @@ public class Runner {
         listSkyscraperNoDuplicates.stream().limit(3).forEach(System.out::println);
 
         System.out.println("4.3_____________________________________________");
-        System.out.println(listSkyscraperNoDuplicates.stream()
+        System.out.println(listSkyscraperNoDuplicates
+                           .stream()
                            .max(Comparator.comparingInt(Skyscraper::getHeight))
                            .get());
 
