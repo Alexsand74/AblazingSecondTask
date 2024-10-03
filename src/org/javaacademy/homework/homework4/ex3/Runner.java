@@ -63,7 +63,8 @@ public class Runner {
                                                               .filter(skyscraperIn ->
                                                                        skyscraperIn
                                                                        .getHeight() > HEIGHT_ONE_KILOMETER)
-                        .forEach(System.out::println))
+                                                                       .forEach(System.out::println)
+                     )
                 .findFirst()
                 .ifPresentOrElse(skyscraper -> {}, () -> System.out.println(DEFAULT_STRING)
             );
